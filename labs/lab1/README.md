@@ -16,11 +16,7 @@
 | Устройство | Интерфейс | IP-адрес / префикс | 
 |-------|------|---------|
 | S1    | VLAN 1 | 192.168.1.2 /24    |
-| S1    | VLAN 1 |     |  
-| S1    | VLAN 1 |  |
 | PC-A    | NIC | 192.168.1.10 /24   |
-| PC-A    | NIC |     |
-| PC-A    | NIC |     |
 
 
 ### 1. Создание сети и проверка настроек коммутатора по умолчанию
@@ -317,9 +313,145 @@ S1#
 
 Команда *login* включает доступ к пользовательскому режиму EXEC  
 
+![](https://github.com/Khalehas/otus-network-engineer/blob/main/labs/lab1/pc-a.png)  
+
+### 3. Проверка сетевых подключений  
+
+```
+Unauthorized access is strictly prohibited. 
+
+User Access Verification
+
+Password: 
+
+S1>enable
+Password: 
+S1#show run
+Building configuration...
+
+Current configuration : 1277 bytes
+!
+version 15.0
+no service timestamps log datetime msec
+no service timestamps debug datetime msec
+service password-encryption
+!
+hostname S1
+!
+enable secret 5 $1$mERr$9cTjUIEqNGurQiFU.ZeCi1
+!
+!
+!
+no ip domain-lookup
+!
+!
+!
+spanning-tree mode pvst
+spanning-tree extend system-id
+!
+interface FastEthernet0/1
+!
+interface FastEthernet0/2
+!
+interface FastEthernet0/3
+!
+interface FastEthernet0/4
+!
+interface FastEthernet0/5
+!
+interface FastEthernet0/6
+!
+interface FastEthernet0/7
+!
+interface FastEthernet0/8
+!
+interface FastEthernet0/9
+!
+interface FastEthernet0/10
+!
+interface FastEthernet0/11
+!
+interface FastEthernet0/12
+!
+interface FastEthernet0/13
+!
+interface FastEthernet0/14
+!
+interface FastEthernet0/15
+!
+interface FastEthernet0/16
+!
+interface FastEthernet0/17
+!
+interface FastEthernet0/18
+!
+interface FastEthernet0/19
+!
+interface FastEthernet0/20
+!
+interface FastEthernet0/21
+!
+interface FastEthernet0/22
+!
+interface FastEthernet0/23
+!
+interface FastEthernet0/24
+!
+interface GigabitEthernet0/1
+!
+interface GigabitEthernet0/2
+!
+interface Vlan1
+ ip address 192.168.1.2 255.255.255.0
+ no shutdown
+!
+banner motd ^CUnauthorized access is strictly prohibited. ^C
+!
+!
+!
+line con 0
+ password 7 0822455D0A16
+ logging synchronous
+ login
+!
+line vty 0 4
+ login
+line vty 5 15
+ login
+!
+!
+!
+!
+end
 
 
+S1#
+```
+#### Тестирование соединения  
+![](https://github.com/Khalehas/otus-network-engineer/blob/main/labs/lab1/cons-ping.png)  
 
+#### Тестирование соединения по Telnet
+```  
+C:\>telnet 192.168.1.2
+Trying 192.168.1.2 ...OpenUnauthorized access is strictly prohibited. 
+
+
+User Access Verification
+
+Password: 
+S1>enable
+Password: 
+S1#exit
+
+[Connection to 192.168.1.2 closed by foreign host]
+```  
+
+### Ответы на вопросы
+1. Зачем необходимо настраивать пароль VTY для коммутатора?
+   Это обязательное требование для удалённого доступа к коммутатору. Без него Telnet/SSH-подключение либо не состоится, либо будет небезопасным.
+2. Что нужно сделать, чтобы пароли не отправлялись в незашифрованном виде?
+   Необходимо настроить конфигурацию коммутатора с помощью соответствующей команды service password-encryption. Это базовая мера. Она заставляет IOS шифровать все пароли в конфигурации, которые ранее хранились в открытом виде.
+   
 
 
 
