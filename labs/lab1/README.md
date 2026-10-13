@@ -25,7 +25,7 @@
 
 1. Создание сети и проверка настроек коммутатора по умолчанию
     - Создайте сеть согласно топологии.  
-![](https://github.com/Khalehas/otus-network-engineer/blob/main/labs/lab1/top1.png)  
+![](https://github.com/Khalehas/otus-network-engineer/blob/main/labs/lab1/top-new.png)  
 
 
 Вопрос:  
