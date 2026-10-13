@@ -23,7 +23,7 @@
 | PC-A    | NIC |     |
 
 
-1. Создание сети и проверка настроек коммутатора по умолчанию
+### 1. Создание сети и проверка настроек коммутатора по умолчанию
     - Создайте сеть согласно топологии.  
 ![](https://github.com/Khalehas/otus-network-engineer/blob/main/labs/lab1/top-new.png)  
 ![](https://github.com/Khalehas/otus-network-engineer/blob/main/labs/lab1/top-term.png)
@@ -33,7 +33,7 @@
 Ответ:  
 У нового или сброшенного устройства ещё нет никакой IP-конфигурации и сетевых служб, чтобы настроить его через Telnet или SSH.  
 
-2. Проверьте настройки коммутатора по умолчанию.  
+    - Проверьте настройки коммутатора по умолчанию.  
 
 <img width="671" height="542" alt="image" src="https://github.com/user-attachments/assets/9986bb29-b905-4640-95af-b742467df173" />  
 
@@ -287,3 +287,42 @@ Switch Ports Model              SW Version            SW Image
 Configuration register is 0xF
 ```
 Интерфейс f0/6 включен.
+Чтобы включить интерфейс нужно войти в режим конфигурации этого интерфейса и подать команду *no shutdown*  
+
+### 2. Настройка базовых параметров сетевых устройств  
+
+```
+Switch#configure terminal
+Enter configuration commands, one per line.  End with CNTL/Z.
+Switch(config)#no ip domain-lookup
+Switch(config)#hostname S1
+S1(config)#service password-encryption
+S1(config)#enable secret class
+S1(config)#banner motd #Unauthorized access is strictly prohibited. #
+```  
+```
+S1(config)#interface vlan 1
+S1(config-if)#ip address 192.168.1.2 255.255.255.0
+S1(config-if)#exit
+```  
+```
+S1(config)#line cons 0
+S1(config-line)#password cisco
+S1(config-line)#login
+S1(config-line)#logg synch
+S1(config-line)#end
+S1#
+%SYS-5-CONFIG_I: Configured from console by console
+```
+
+Команда *login* включает доступ к пользовательскому режиму EXEC  
+
+
+
+
+
+
+
+
+
+
